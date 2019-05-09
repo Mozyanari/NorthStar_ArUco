@@ -59,8 +59,8 @@ public class opencv_test : MonoBehaviour {
         
         
         
-        var rvec = new Mat();
-        var tvec = new Mat();
+        Mat rvec = new Mat();
+        Mat tvec = new Mat();
         
 
         
@@ -80,9 +80,9 @@ public class opencv_test : MonoBehaviour {
             /*
             Mat rvec = new Mat(3, maker_ids.Length, MatType.CV_32FC1);
             Mat tvec = new Mat(3, maker_ids.Length, MatType.CV_32FC1);
-
+            */
             
-
+            /*
             Debug.Log(tvec.Rows);
             Debug.Log(tvec.Cols);
             Debug.Log(tvec.Size());
@@ -90,20 +90,40 @@ public class opencv_test : MonoBehaviour {
             */
 
             CvAruco.EstimatePoseSingleMarkers(maker_corners, (float)1.8, cameraMatrix, distortionCoefficients, rvec, tvec);
-            
+
 
             //マーカまでの距離
-
             /*
+            //1
             Debug.Log(tvec.Rows);
+            //1
             Debug.Log(tvec.Cols);
+            //1:1
             Debug.Log(tvec.Size());
+            //2
             Debug.Log(tvec.Dims());
+            //3=#define CV_16S
+            Debug.Log(tvec.Channels());
             */
+
             
+            Vec3d vec3D = tvec.At<Vec3d>(0, 0);
+
+            double z = vec3D[2];
+
+            Debug.Log(z);
+            
+            
+            /*
+            Debug.Log(tvec.At<Vec3d>(0, 0)[2]);
+            */
+
+            //Debug.Log(tvec.Data[0]);
+            //Debug.Log(tvec.At<Vec3b>(1, 1)[2]);
+
             //Debug.Log(tvec[new OpenCvSharp.Rect(0, 1,0,1)]);
-            
-            
+
+
             /*
             Debug.Log(rvec.Rows);
             Debug.Log(rvec.Cols);
@@ -120,6 +140,13 @@ public class opencv_test : MonoBehaviour {
             Debug.Log(distortionCoefficients.Size());
             */
 
+            /*
+            //1channelはdoubleできれいに取れる
+            Debug.Log(distortionCoefficients.At<double>(0,0));
+            //1
+            Debug.Log(distortionCoefficients.Channels());
+            */
+
             //Debug.Log(tvec.)
             //24
             //Debug.Log(tvec.Step());
@@ -128,16 +155,16 @@ public class opencv_test : MonoBehaviour {
 
 
 
-            
-            Debug.Log(tvec.At<double>(0, 0));
-            Debug.Log(tvec.At<double>(0, 1));
-            Debug.Log(tvec.At<double>(0, 2));
-            
+
+            //Debug.Log(tvec.At<double>(0, 0));
+            //Debug.Log(tvec.At<double>(0, 1));
+            //Debug.Log(tvec.At<double>(0, 2));
+
             /*
             Debug.Log(rvec.GetArray(0, 1));
             Debug.Log(rvec.GetArray(0, 2));
             */
-            
+
         }
 
         cam_Texture.LoadImage(cam_frame.ImEncode());
